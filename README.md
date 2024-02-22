@@ -21,7 +21,7 @@ We are going to be creating the Entity Relationship Diagram for your StarWars Bl
 
 2. Install all dependencies `$ pipenv install`
 
-3. Generate the diagram as many times as you need `$ python src/models.py`
+3. Generate the diagram as many times as you need `$ `python src/models.py
 
 4. Open the file `diagram.png` to check out your UML diagram!
 
