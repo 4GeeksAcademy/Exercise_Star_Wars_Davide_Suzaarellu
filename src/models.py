@@ -5,7 +5,9 @@ from sqlalchemy.orm import relationship, declarative_base
 from sqlalchemy import create_engine
 from eralchemy2 import render_er
 
+
 Base = declarative_base()
+
 
 class Users(Base):
     __tablename__ = 'users'
@@ -14,6 +16,7 @@ class Users(Base):
     password = Column(String(16), nullable=False)
     first_name = Column(String(100), nullable=False)
     last_name = Column(String(50))
+
 
 class Posts(Base):
     __tablename__ = 'posts'
@@ -25,13 +28,16 @@ class Posts(Base):
     user_id = Column(Integer, ForeignKey('users.id'))
     users = relationship("Users")
 
+
     def to_dict(self):
         return {}
+
 
 class Planets(Base):
     __tablename__ = "planets"
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
+
 
 class Characters(Base):
     __tablename__ = "characters"
@@ -46,6 +52,7 @@ class Films(Base):
     year = Column(DateTime)
     director = Column(String(150), nullable=False)
 
+
 class PlanetsFilms(Base):
     __tablename__ = "films_planets"
     id = Column(Integer, primary_key=True)
@@ -53,6 +60,7 @@ class PlanetsFilms(Base):
     planet_id = Column(Integer, ForeignKey("planets.id"))
     film = relationship("Films", foreign_keys=["films.id"])
     planet = relationship("Planets", foreign_keys=["planets.id"])
+
 
 class CharactersFilms(Base):
     __tablename__ = "characters_films"
@@ -63,6 +71,7 @@ class CharactersFilms(Base):
     character = relationship("Characters", foreign_keys=["character_id"])
     film = relationship("Films", foreign_keys=["film_id"])
 
+
 class CharactersPlanets(Base):
     __tablename__ = "characters_planets"
     id = Column(Integer, primary_key=True)
@@ -70,6 +79,7 @@ class CharactersPlanets(Base):
     planet_id = Column(Integer, ForeignKey("planets.id"))
     character = relationship("Characters", foreign_keys=["character_id"])
     planet = relationship("Planets", foreign_keys=["planet_id"])
+
 
 class CharactersPlanetsFilms(Base):
     __tablename__ = "characters_planets_films"
@@ -80,7 +90,6 @@ class CharactersPlanetsFilms(Base):
     character = relationship("Characters", foreign_keys=["character_id"])
     planet = relationship("Planets", foreign_keys=["planet_id"])
     film = relationship("Films", foreign_keys=["film_id"])
-
 
 
 
