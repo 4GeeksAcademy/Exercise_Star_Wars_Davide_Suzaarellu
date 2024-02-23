@@ -37,8 +37,7 @@ class Characters(Base):
     __tablename__ = "characters"
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
-    homeworld_id = Column(Integer, ForeignKey("users.id"))
-    homeworld = relationship("Planets")
+
 
 class Films(Base):
     __tablename__ = "films"
@@ -47,14 +46,41 @@ class Films(Base):
     year = Column(DateTime)
     director = Column(String(150), nullable=False)
 
+class PlanetsFilms(Base):
+    __tablename__ = "films_planets"
+    id = Column(Integer, primary_key=True)
+    film_id = Column(Integer, ForeignKey("films.id"))
+    planet_id = Column(Integer, ForeignKey("planets.id"))
+    film = relationship("Films", foreign_keys=["films.id"])
+    planet = relationship("Planets", foreign_keys=["planets.id"])
+
 class CharactersFilms(Base):
-    __tablename__ = "character_films"
+    __tablename__ = "characters_films"
     id = Column(Integer, primary_key=True)
     minutes = Column(DateTime)
     character_id = Column(Integer, ForeignKey("characters.id"))
     film_id = Column(Integer, ForeignKey("films.id"))
     character = relationship("Characters", foreign_keys=["character_id"])
     film = relationship("Films", foreign_keys=["film_id"])
+
+class CharactersPlanets(Base):
+    __tablename__ = "characters_planets"
+    id = Column(Integer, primary_key=True)
+    character_id = Column(Integer, ForeignKey("characters.id"))
+    planet_id = Column(Integer, ForeignKey("planets.id"))
+    character = relationship("Characters", foreign_keys=["character_id"])
+    planet = relationship("Planets", foreign_keys=["planet_id"])
+
+class CharactersPlanetsFilms(Base):
+    __tablename__ = "characters_planets_films"
+    id = Column(Integer, primary_key=True)
+    character_id = Column(Integer, ForeignKey("characters.id"))
+    planet_id = Column(Integer, ForeignKey("planets.id"))
+    film_id = Column(Integer, ForeignKey("films.id"))
+    character = relationship("Characters", foreign_keys=["character_id"])
+    planet = relationship("Planets", foreign_keys=["planet_id"])
+    film = relationship("Films", foreign_keys=["film_id"])
+
 
 
 
